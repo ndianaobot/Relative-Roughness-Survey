@@ -85,59 +85,6 @@ document.addEventListener('DOMContentLoaded', () => {
         "Sample_Images/Wooden sign.jpg"
     ];
 
-    // Function to convert Markdown to HTML (improved for basic styling)
-    function markdownToHtml(markdown) {
-        let html = markdown;
-
-        // Convert headers
-        html = html.replace(/^###\s*(.*$)/gim, '<h3>$1</h3>');
-        html = html.replace(/^##\s*(.*$)/gim, '<h2>$1</h2>');
-        html = html.replace(/^#\s*(.*$)/gim, '<h1>$1</h1>');
-
-        // Convert unordered lists (handle multiple lines and wrap in <ul>)
-        // This is a simplified approach; a proper regex for lists is complex.
-        // We'll process line by line and build the HTML.
-        const lines = html.split('\n');
-        let processedLines = [];
-        let inList = false;
-
-        for (const line of lines) {
-            if (line.match(/^\s*[-*]\s/)) { // Looks like a list item
-                if (!inList) {
-                    processedLines.push('<ul>');
-                    inList = true;
-                }
-                processedLines.push(`<li>${line.replace(/^\s*[-*]\s/, '').trim()}</li>`);
-            } else {
-                if (inList) {
-                    processedLines.push('</ul>');
-                    inList = false;
-                }
-                processedLines.push(line);
-            }
-        }
-        if (inList) { // Close any open list
-            processedLines.push('</ul>');
-        }
-        html = processedLines.join('\n');
-
-        // Convert links
-        html = html.replace(/\[(.*?)\]\((.*?)\)/gim, '<a href="$2">$1</a>');
-
-        // Convert paragraphs and line breaks
-        // Ensure newlines within paragraphs become <br>, and double newlines become <p> tags
-        html = html.split('\n\n').map(paragraph => {
-            if (paragraph.trim() === '') return ''; // Skip empty paragraphs
-            if (paragraph.startsWith('<h') || paragraph.startsWith('<ul')) {
-                return paragraph; // Don't wrap headers or lists in p tags
-            }
-            // Replace single newlines with <br> inside paragraphs
-            return `<p>${paragraph.replace(/\n/g, '<br>')}</p>`;
-        }).join('\n');
-        
-        return html;
-    }
-
     // Fetch IRB.md content and display it
     fetch('IRB.md')
         .then(response => {
@@ -147,8 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return response.text();
         })
         .then(markdownContent => {
-            // Directly assign raw markdown content to innerHTML for debugging
-            document.getElementById('irb-content-placeholder').innerHTML = markdownToHtml(markdownContent);
+            document.getElementById('irb-content-placeholder').innerHTML = marked.parse(markdownContent);
         })
         .catch(error => {
             console.error('There has been a problem with your fetch operation:', error);

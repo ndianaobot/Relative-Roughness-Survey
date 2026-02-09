@@ -46,7 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
         "Sample_Images/Hair.jpg",
         "Sample_Images/Hair(1).jpg",
         "Sample_Images/Hair(2).jpg",
-        "Sample_Images/Hair(3).jpg",
         "Sample_Images/Lamp fabric.jpg",
         "Sample_Images/Leather chair.jpg",
         "Sample_Images/Pavement_.jpg",

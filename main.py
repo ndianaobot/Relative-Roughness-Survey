@@ -98,6 +98,34 @@ def select_images() -> list:
 
 #loads static parts of the webpage
 def load_static():
+    # Load agreement text from IRB.md
+    try:
+        with open('IRB.md', 'r') as f:
+            agreementText = f.read()
+    except FileNotFoundError:
+        agreementText = "Agreement text not found. Please ensure IRB.md exists."
+    
+    # Display consent modal if not agreed
+    if not st.session_state.get('irb_agreed', False):
+        with st.container(border=True):
+            st.subheader("Informed Consent Agreement")
+            
+            # Create a scrollable container for the agreement text
+            agreement_container = st.container(height=400)
+            with agreement_container:
+                st.markdown(agreementText)
+            
+            # Checkbox for agreement
+            agreed = st.checkbox("I have read and agree to participate in this research", key="consent_checkbox")
+            
+            if agreed:
+                if st.button("Continue", key="consent_button"):
+                    st.session_state['irb_agreed'] = True
+                    st.rerun()
+            else:
+                st.info("Please check the box above to proceed with the survey.")
+                st.stop()
+    
     st.title("Relative Roughness Survey")
     st.write("This is a survey to collect data on the relative roughness of the surface of the images.\n Rank each of the images from 1 to 5, where 1 is the lowest and 5 is the highest relative roughness.")
     st.write("Your work will not save if you refresh this page or close the browser, so make sure to save your ratings and send them to Ndiana Obot or upload them to the Google Drive folder first")

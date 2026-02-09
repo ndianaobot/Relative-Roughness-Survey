@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relative Roughness Survey</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div id="consent-modal" class="consent-modal">
+            <div class="consent-content">
+                <h2>Informed Consent Agreement</h2>
+                <div class="agreement-text" id="irb-content-placeholder">
+                </div>
+                <label>
+                    <input type="checkbox" id="consent-checkbox"> I have read and agree to participate in this research
+                </label>
+                <button id="continue-button" disabled>Continue</button>
+            </div>
+        </div>
+
+        <header>
+            <h1>Relative Roughness Survey</h1>
+            <p>This is a survey to collect data on the relative roughness of the surface of the images. Rank each of the images from 1 to 5, where 1 is the lowest and 5 is the highest relative roughness.</p>
+            <p>Please ensure that each rating is different. If you have any questions, please contact Ndiana Obot at <a href="mailto:ndianaobot8@gmail.com">ndianaobot8@gmail.com</a></p>
+            <p>We thank you for your participation!</p>
+            <hr>
+        </header>
+
+        <main id="survey-content" style="display: none;">
+            <div class="image-grid">
+                <div class="image-item">
+                    <img src="" alt="Image 1" id="image1">
+                    <label for="rating1">Image 1 Rating (1-5):</label>
+                    <input type="number" id="rating1" min="1" max="5" value="1">
+                </div>
+                <div class="image-item">
+                    <img src="" alt="Image 2" id="image2">
+                    <label for="rating2">Image 2 Rating (1-5):</label>
+                    <input type="number" id="rating2" min="1" max="5" value="1">
+                </div>
+                <div class="image-item">
+                    <img src="" alt="Image 3" id="image3">
+                    <label for="rating3">Image 3 Rating (1-5):</label>
+                    <input type="number" id="rating3" min="1" max="5" value="1">
+                </div>
+                <div class="image-item">
+                    <img src="" alt="Image 4" id="image4">
+                    <label for="rating4">Image 4 Rating (1-5):</label>
+                    <input type="number" id="rating4" min="1" max="5" value="1">
+                </div>
+                <div class="image-item">
+                    <img src="" alt="Image 5" id="image5">
+                    <label for="rating5">Image 5 Rating (1-5):</label>
+                    <input type="number" id="rating5" min="1" max="5" value="1">
+                </div>
+            </div>
+            <div id="validation-messages" style="color: red; text-align: center; margin-bottom: 15px;"></div>
+            <div id="success-message" style="color: green; text-align: center; margin-bottom: 15px; display: none;"></div>
+            <button id="submit-rankings">Submit Rankings</button>
+            <button id="get-more-images" style="display: none;">Get More Images</button>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
